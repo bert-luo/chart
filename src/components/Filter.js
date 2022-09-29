@@ -4,13 +4,15 @@ import Stack from '@mui/material/Stack';
 
 import { dataset } from "./data/Dataset.js";
 
+const inputNames = Object.keys(dataset["20170102_EXP_56"]["inputs"]);
+const outputNames = Object.keys(dataset["20170102_EXP_56"]["outputs"]);
+
+inputNames.unshift("Select an input");
+outputNames.unshift("Select an output");
 
 function Filter(){
-    const [xdims, setxdims] = useState('');
-    const [ydims, setydims] = useState('');
-
-    const inputNames = Object.keys(dataset["20170102_EXP_56"]["inputs"]);
-    const outputNames = Object.keys(dataset["20170102_EXP_56"]["outputs"]);
+    const [xdims, setxdims] = useState('Select an input');
+    const [ydims, setydims] = useState('Select an output');
 
     return (
       <>
@@ -24,7 +26,7 @@ function Filter(){
             <select
             onChange={(event) => setxdims(event.target.value)}
             value={xdims}
-            placeholder="Select an option"
+            placeholder="Select an input"
             >
                 options={
                 inputNames.map((inputName) => (
@@ -38,7 +40,7 @@ function Filter(){
             <select
             onChange={(event) => setydims(event.target.value)}
             value={ydims}
-            placeholder="Select an option"
+            placeholder="Select an output"
             >
                 options={
                 outputNames.map((outputName) => (

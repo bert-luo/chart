@@ -15,7 +15,7 @@ export default class Header extends Component {
           textAlign: 'center'
         }}
       >
-        Data Visualization Tool
+        Experiment Insights Tool
       </h1>
     </div>
 

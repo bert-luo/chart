@@ -10,27 +10,32 @@ import {
     Title
   } from 'chart.js';
 import { dataset } from "./data/Dataset.js";
-import { fontSize } from "@mui/system";
+import Stack from '@mui/material/Stack';
+import Insights from "./Insights.js"
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, Title);
 
-function ExtractData(dataObject, xdim, ydim){
-    return(
-        Object.entries(dataObject).map(
+function ExtractData(dataObject, xdim, ydim, zeroes){
+    const points =   Object.entries(dataObject).map(
           ([k, v]) => ({x: v["inputs"][xdim], y: v["outputs"][ydim]})
         )
-    )  
+    if (zeroes){
+        return (points)
+    } else {
+        return points.filter((point) => point.x != 0)
+    }
+    
 }
 
 function Plot({xdims, ydims}){
 
-    if (xdims=='' || ydims==''){
+    if (xdims=='Select an input' || ydims=='Select an output'){
         return (
             <h2>Please select an input and ouptut</h2>
         )
     } else {
         // update the data
-        const scatterPoints = ExtractData(dataset, xdims, ydims);
+        const scatterPoints = ExtractData(dataset, xdims, ydims, false);
         let dataparam = {
             datasets:[{
                 labels: ['hi'], 
@@ -72,13 +77,21 @@ function Plot({xdims, ydims}){
           };
 
         return (
-            <div className="chart">
-                <Scatter 
-                    data={dataparam} 
-                    options={options}
-                    style={{width: 600}}
-            />
-            </div>
+            <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={4}
+                >
+                <div className="chart">
+                    <Scatter 
+                        data={dataparam} 
+                        options={options}
+                        style={{width: 600}}
+                />
+                </div>                    
+                <Insights data={scatterPoints}/>
+            </Stack>
           );
     }
     
