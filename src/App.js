@@ -1,19 +1,23 @@
 import './App.css';
+import React from "react";
+import Header from "./components/Header.js";
+import Filter from './components/Filter.js';
+import Stack from '@mui/material/Stack';
 
-function App() {
+//style={{ display: "flex", justifyContent: "space-between" }}>
+function App(){
   return (
-    <div
-      style={{
-        display: 'flex',
-        //alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-      }}
+    <Stack
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={5}
     >
-      <h2>Hey guys,</h2>
-      
-    </div>
-  );
+      <Header/>
+      <Filter/>
+    </Stack>
+    );
 }
+
 
 export default App;
